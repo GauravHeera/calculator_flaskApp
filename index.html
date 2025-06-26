@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="statics/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <title>Calculator</title>
+</head>
+<body class="body">
+    <aside class="history-box">
+        <h3>History</h3>
+        <div class="history-content">
+            <ul id="history-list">
+                <!-- History items will be dynamically added here -->
+            </ul>
+        <button class="close-history" onclick="hideHistory()">Close</button>
+        <p style="font-family: 'Poppins'; color: #808080;">Nothing to Show Here</p>
+    </aside>
+
+    <div class="container">
+        
+        <div class="theme">
+            <label for="theme-selector" class="theme-label">Theme : </label>
+            <button class="theme-selector active" id="default-theme" aria-label="Default Theme">Default</button>
+            <button class="theme-selector" id="light-theme">Light</button>
+            <button class="theme-selector" id="dark-theme">Dark</button>
+        </div>
+
+        <div class="calculator">
+            <textarea name="display" id="display" class="display"></textarea>
+            <div class="top-row">
+                <h2 class="degRad">Deg</h2>
+                <button class="history" onclick="showHistory()">View History</button>
+                <button class="backspace" onclick="backspace()">&#9003;</button>
+            </div>
+            <hr>
+
+            <div class="keypad" id="keypad">
+
+                <!-- Scientific -->
+                <button class="switchDEGandRAD" onclick="switchRadianAndDegree()">Rad</button>
+                <button class="sq-root" onclick="addToDisplay('√(')">√</button>
+                <button class="cube-root" onclick="addToDisplay('∛(')">∛</button>
+
+                <!-- Basics -->
+                <button class="clear" onclick="clearDisplay()">C</button>
+                <button class="bracket-open" onclick="addToDisplay('(')">(</button>
+                <button class="bracket-close" onclick="addToDisplay(')')">)</button>
+                <button class="percentage" onclick="addToDisplay('%')">%</button>
+                <button class="operator" onclick="addToDisplay('/')">÷</button>
+
+                <!-- Row One -->
+                <button class="sin" onclick="addToDisplay('sin(')">sin</button>
+                <button class="cos" onclick="addToDisplay('cos(')">cos</button>
+                <button class="tan" onclick="addToDisplay('tan(')">tan</button>
+
+                <!-- Scientific -->
+                <button class="e" onclick="addToDisplay('e')">e</button>
+                <button class="number" onclick="addToDisplay('7')">7</button>
+                <button class="number" onclick="addToDisplay('8')">8</button>
+                <button class="number" onclick="addToDisplay('9')">9</button>
+                <button class="operator" onclick="addToDisplay('*')">×</button>
+
+                <!-- Row Two -->
+                <button class="ln" onclick="addToDisplay('ln(')">ln</button>
+                <button class="log" onclick="addToDisplay('log(')">log</button>
+                <button class="1-div-X" onclick="addToDisplay('1/')">1/x</button>
+                <button class="e-pow-x" onclick="addEPowerX()">e<sup>x</sup></button>
+
+                <!-- Scientific -->
+                <button class="number" onclick="addToDisplay('4')">4</button>
+                <button class="number" onclick="addToDisplay('5')">5</button>
+                <button class="number" onclick="addToDisplay('6')">6</button>
+                <button class="operator" onclick="addToDisplay('-')">-</button>
+
+                <!-- Row Three -->
+                <button class="x-pow-2" onclick="addSquare()">x<sup>2</sup></button>
+                <button class="x-pow-y" onclick="addPower()">x<sup>y</sup></button>
+                <button class="x-bars" onclick="addAbsoluteValue()">|x|</button>
+                <button class="pi" onclick="addPi()">&pi;</button>
+
+                <!-- Scientific -->
+                <button class="number" onclick="addToDisplay('1')">1</button>
+                <button class="number" onclick="addToDisplay('2')">2</button>
+                <button class="number" onclick="addToDisplay('3')">3</button>
+                <button class="operator" onclick="addToDisplay('+')">+</button>
+
+                <!-- Row Four -->
+                <button class="x-factorial" onclick="addFactorial()">x!</button>
+                <button class="sin-minus-1" onclick="addSinInverse()">sin<sup>-1</sup></button>
+                <button class="cos-minus-1" onclick="addCosInverse()">cos<sup>-1</sup></button>
+                <button class="tan-minus-1" onclick="addTanInverse()">tan<sup>-1</sup></button>
+
+                <!-- Scientific -->
+                <button class="operator" onclick="addToDisplay('+/-')">+/-</button>
+                <button class="number" onclick="addToDisplay('0')">0</button>
+                <button class="period" onclick="addToDisplay('.')">.</button>
+                <button class="equals" onclick="calculateResult()">=</button>
+
+                <!-- Row Five -->
+                <button class="sinh" onclick="addToDisplay('sinh(')">sinh</button>
+                <button class="cosh" onclick="addToDisplay('cosh(')">cosh</button>
+                <button class="tanh" onclick="addToDisplay('tanh(')">tanh</button>
+                <button class="sinh-minus-1" onclick="addToDisplay('sinh⁻¹(')">sinh<sup>-1</sup></button>
+                <button class="cosh-minus-1" onclick="addToDisplay('cosh⁻¹(')">cosh<sup>-1</sup></button>
+                <button class="tanh-minus-1" onclick="addToDisplay('tanh⁻¹(')">tanh<sup>-1</sup></button>
+                <button class="2-pow-x" onclick="addToDisplay('2^')">2<sup>x</sup></button>
+                <button class="x-cube" onclick="addToDisplay('**3')">x<sup>3</sup></button>
+
+            </div>
+
+
+            
+        </div>
+    </div>    
+</body>
+<script src="statics/script.js"></script>
+<script>
+    function applySavedTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const body = document.body;
+        body.classList.remove('light-theme', 'dark-theme');
+        let activeId = 'default-theme';
+
+        if (savedTheme === 'light') {
+            body.classList.add('light-theme');
+            activeId = 'light-theme';
+        } else if (savedTheme === 'dark') {
+            body.classList.add('dark-theme');
+            activeId = 'dark-theme';
+        } else {
+            // Default: Adapt to browser/OS theme preference
+            const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light';
+            if (systemTheme === 'dark') {
+                body.classList.add('dark-theme');
+            } else {
+                body.classList.add('light-theme');
+            }
+        }
+
+        // Update active button state
+        document.querySelectorAll('.theme-selector').forEach(btn => {
+            btn.classList.toggle('active', btn.id === activeId);
+        });
+    }
+
+    function switchTheme(event) {
+        const themeSelector = document.querySelectorAll('.theme-selector');
+        themeSelector.forEach(themeButton => {
+            themeButton.classList.remove('active');
+        });
+        event.currentTarget.classList.add('active');
+
+        // Theme switching logic
+        const body = document.body;
+        body.classList.remove('light-theme', 'dark-theme');
+        let theme = 'default';
+        if (event.currentTarget.id === 'light-theme') {
+            body.classList.add('light-theme');
+            theme = 'light';
+        } else if (event.currentTarget.id === 'dark-theme') {
+            body.classList.add('dark-theme');
+            theme = 'dark';
+        }
+        // Save preference
+        localStorage.setItem('theme', theme);
+    }
+
+    // Listen for system theme changes if "Default" is selected
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
+        if (localStorage.getItem('theme') === 'default') {
+            applySavedTheme(); // Reapply the theme based on system preference
+        }
+    });
+
+    // Add event listeners to theme buttons
+    document.querySelectorAll('.theme-selector').forEach(btn => {
+        btn.addEventListener('click', switchTheme);
+    });
+
+    // Apply saved theme on page load
+    applySavedTheme();
+
+    function showHistory(){
+        const historyBox = document.querySelector('.history-box');
+        historyBox.classList.add('active');
+        const historyList = document.getElementById('history-list');
+        historyList.innerHTML = ''; // Clear previous history items
+        const history = JSON.parse(localStorage.getItem('history')) || [];
+        history.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            historyList.appendChild(li);
+        });
+    }
+
+    function hideHistory() {
+        const historyBox = document.querySelector('.history-box');
+        historyBox.classList.remove('active');
+    }
+
+    document.getElementById("display").addEventListener("keydown", function(event) {
+        event.preventDefault(); // Prevent typing
+    });
+
+    document.getElementById("display").addEventListener("paste", function(event) {
+        event.preventDefault(); // Prevent pasting
+    });
+
+    document.getElementById("display").addEventListener("copy", function(event) {
+        event.preventDefault(); // Prevent copying
+    });
+
+    document.getElementById("display").addEventListener("cut", function(event) {
+        event.preventDefault(); // Prevent cutting
+    });
+
+</script>
+</html>
