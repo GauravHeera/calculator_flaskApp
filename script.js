@@ -51,7 +51,7 @@ function addToDisplay(value) {
 
 function addEPowerX() {
     const display = document.getElementById('display');
-    display.value += 'e^'; // Append 'e^' to the display
+    display.value += 'e**'; // Append 'e^' to the display
 }
 
 function addSquare() {
