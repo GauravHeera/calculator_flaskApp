@@ -216,5 +216,9 @@
         event.preventDefault(); // Prevent cutting
     });
 
+    document.getElementById("display").addEventListener("touchstart", (event) => {
+        event.preventDefault(); // Prevent mobile keypad from opening
+    });
+
 </script>
 </html>
