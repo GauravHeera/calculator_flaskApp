@@ -38,4 +38,5 @@ def calculate():
 
 if __name__ == '__main__':
     print("Calculator is ready")  # Debugging message
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=8080)  # Ensure it runs on port 8080
+
