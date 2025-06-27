@@ -136,7 +136,7 @@ async function calculateResult() {
             .replace(/(\d+)!/g, "factorial($1)");
 
         // Send formatted expression to Flask
-        const response = await fetch("http://127.0.0.1:5000/calculate", {
+        const response = await fetch("https://calculator-flaskapp-1.onrender.com/calculate", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ expression }) // Ensure JSON format
