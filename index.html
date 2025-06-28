@@ -28,7 +28,7 @@
         </div>
 
         <div class="calculator">
-            <textarea name="display" id="display" class="display"></textarea>
+            <textarea name="display" id="display" class="display" inputmode="none"></textarea>
             <div class="top-row">
                 <h2 class="degRad">Deg</h2>
                 <button class="history" onclick="showHistory()">View History</button>
@@ -219,6 +219,7 @@
 
     document.getElementById("display").addEventListener("touchstart", (event) => {
         event.preventDefault(); // Prevent mobile keypad from opening
+        event.stopPropagation();
     });
 
 </script>
