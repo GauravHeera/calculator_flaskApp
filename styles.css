@@ -240,6 +240,7 @@ hr{
   border: none;
   cursor: pointer;
   transition: transform .5s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .keypad button:active {
@@ -284,6 +285,7 @@ button.number{
   text-align: center;
   cursor: pointer;
   margin-right: var(--button-margin);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .top-row{
@@ -328,6 +330,7 @@ button.number{
   margin: var(--button-margin);
   padding: 0 2px;
   border-radius: 5px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .theme .theme-selector.active{
@@ -385,6 +388,7 @@ button.number{
   padding: 5px 10px;
   border-radius: 10px;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 .history-box.active {
     transform: translate(0, 0);
